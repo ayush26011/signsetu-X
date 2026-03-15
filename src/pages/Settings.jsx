@@ -1,7 +1,10 @@
 import { motion } from 'framer-motion';
-import { User, Shield, Bell, Lock } from 'lucide-react';
+import { User, Shield, Bell, Lock, Palette, ChevronRight } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 export default function Settings() {
+  const navigate = useNavigate();
+
   return (
     <div className="settings-page" style={{ padding: '1rem', display: 'flex', gap: '2rem', height: 'calc(100vh - 120px)' }}>
       
@@ -51,6 +54,32 @@ export default function Settings() {
           </div>
 
         </div>
+
+        {/* Phase 6 Theme Block Entry */}
+        <div style={{ marginTop: '3rem', maxWidth: '600px' }}>
+          <h2 style={{ margin: '0 0 1.5rem 0' }}>Preferences</h2>
+          <div 
+            className="glass-card" 
+            style={{ padding: '1.5rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center', cursor: 'pointer', transition: 'transform 0.2s', border: '1px solid var(--glass-border)' }}
+            onClick={() => navigate('/settings/theme')}
+            onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.02)'}
+            onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
+          >
+            <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+              <div style={{ padding: '0.75rem', background: 'rgba(79, 62, 52, 0.1)', borderRadius: '12px', color: 'var(--color-primary)' }}>
+                <Palette size={24} />
+              </div>
+              <div>
+                <h4 style={{ margin: '0 0 0.25rem 0', fontSize: '1.1rem' }}>Theme Customization</h4>
+                <p style={{ margin: 0, fontSize: '0.9rem', color: 'var(--color-text-muted)' }}>Personalize the appearance of your SignSetu interface.</p>
+              </div>
+            </div>
+            <button className="btn btn-primary glow-effect" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+              Customize Theme <ChevronRight size={16} />
+            </button>
+          </div>
+        </div>
+
       </motion.div>
     </div>
   );
