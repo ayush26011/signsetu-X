@@ -94,6 +94,11 @@ button { cursor: pointer; }
   box-shadow: var(--shadow-hover);
 }
 
+.nav-btn-hover:hover {
+  background: rgba(0,0,0,0.05) !important;
+  color: var(--color-primary) !important;
+}
+
 .text-gradient {
   background: var(--gradient-primary);
   -webkit-background-clip: text;
