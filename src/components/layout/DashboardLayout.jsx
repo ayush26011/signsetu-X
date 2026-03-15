@@ -1,5 +1,6 @@
 import { Outlet, Link, useLocation } from 'react-router-dom';
 import { LayoutDashboard, Camera, BookOpen, Users, User, Settings, Bell, Search, Sparkles, Network } from 'lucide-react';
+import { AnimatePresence, motion } from 'framer-motion';
 import Chatbot from './Chatbot';
 
 export default function DashboardLayout() {
@@ -57,7 +58,18 @@ export default function DashboardLayout() {
 
         {/* Content Area */}
         <div className="dashboard-content">
-          <Outlet />
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={location.pathname}
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -15 }}
+              transition={{ duration: 0.3, ease: 'easeInOut' }}
+              style={{ height: '100%', width: '100%' }}
+            >
+              <Outlet />
+            </motion.div>
+          </AnimatePresence>
         </div>
       </div>
       
