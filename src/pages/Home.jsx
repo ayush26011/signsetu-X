@@ -3,8 +3,8 @@ import { Camera, BookOpen, Globe, Accessibility, ShieldCheck, Zap, ArrowRight, P
 import { Link } from 'react-router-dom';
 
 const fadeInRules = {
-  hidden: { opacity: 0, y: 30 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
+  hidden: { opacity: 0, y: 40, scale: 0.95 },
+  visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.7, ease: [0.16, 1, 0.3, 1] } }
 };
 
 export default function Home() {
@@ -120,7 +120,7 @@ export default function Home() {
 function FeatureCard({ icon, title, desc, dark }) {
   return (
     <motion.div className={`glass-card feature-card ${dark ? 'dark-card' : ''}`} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-50px" }} variants={fadeInRules}>
-      <div className="feature-icon">{icon}</div>
+      <div className="feature-icon animate-float">{icon}</div>
       <h3>{title}</h3>
       {desc && <p>{desc}</p>}
     </motion.div>
@@ -129,8 +129,8 @@ function FeatureCard({ icon, title, desc, dark }) {
 
 function CourseCard({ title, level, duration, progress }) {
   return (
-    <motion.div className="glass-card course-card-mini" whileHover={{ scale: 1.05 }} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInRules}>
-      <div className="course-thumb"><Play size={24} color="#FFF"/></div>
+    <motion.div className="glass-card course-card-mini" whileHover={{ scale: 1.05 }} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.3 }} variants={fadeInRules}>
+      <div className="course-thumb"><Play size={24} color="#FFF" className="animate-float" style={{ animationDuration: '4s' }}/></div>
       <h4>{title}</h4>
       <div className="course-meta">
         <span>{level}</span> • <span>{duration}</span>

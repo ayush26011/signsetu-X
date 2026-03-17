@@ -59,7 +59,74 @@ function App() {
 
     // Re-apply if ThemeCustomization page triggers custom event
     window.addEventListener('themeChanged', applyTheme);
-    return () => window.removeEventListener('themeChanged', applyTheme);
+
+    // --- NEW: Global 3D Card Tilt Effect ---
+    // Only apply if user respects motion
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    
+    const handleMouseMove = (e) => {
+      if (prefersReducedMotion) return;
+      const cards = document.querySelectorAll('.glass-card:not(.no-tilt)');
+      cards.forEach(card => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        
+        // Calculate rotation based on cursor position relative to center of card
+        // Max tilt angle: 5 degrees
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        const rotateX = ((y - centerY) / centerY) * -5;
+        const rotateY = ((x - centerX) / centerX) * 5;
+
+        // Only apply if mouse is inside the card
+        if (x > 0 && x < rect.width && y > 0 && y < rect.height) {
+          card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+        } else {
+          // Reset smoothly when leaving
+          card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
+        }
+      });
+    };
+
+    // --- NEW: Glowing Cursor Trail ---
+    const cursorDot = document.createElement('div');
+    cursorDot.className = 'cursor-glow-dot';
+    document.body.appendChild(cursorDot);
+
+    let outlineX = 0; let outlineY = 0;
+    let targetX = 0; let targetY = 0;
+    
+    // Smooth animation loop for cursor
+    let animationFrameId;
+    const renderCursor = () => {
+      if (prefersReducedMotion) return;
+      // Interpolation for smooth delay effect
+      outlineX += (targetX - outlineX) * 0.15;
+      outlineY += (targetY - outlineY) * 0.15;
+      
+      cursorDot.style.transform = `translate3d(${outlineX}px, ${outlineY}px, 0)`;
+      animationFrameId = requestAnimationFrame(renderCursor);
+    };
+
+    const handleGlobalMouseMove = (e) => {
+      if (prefersReducedMotion) return;
+      handleMouseMove(e);
+      targetX = e.clientX;
+      targetY = e.clientY;
+    };
+
+    if (!prefersReducedMotion) {
+      window.addEventListener('mousemove', handleGlobalMouseMove);
+      renderCursor();
+    }
+
+    return () => {
+      window.removeEventListener('themeChanged', applyTheme);
+      window.removeEventListener('mousemove', handleGlobalMouseMove);
+      if (animationFrameId) cancelAnimationFrame(animationFrameId);
+      if (cursorDot.parentNode) cursorDot.parentNode.removeChild(cursorDot);
+    };
   }, []);
 
   return (
