@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
-import { Camera, BookOpen, Globe, Accessibility, ShieldCheck, Zap, ArrowRight, Play } from 'lucide-react';
+import { Camera, BookOpen, Globe, Accessibility, ShieldCheck, Zap, ArrowRight, Play, Github, Linkedin, Instagram } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { useEffect } from 'react';
 
 const fadeInRules = {
   hidden: { opacity: 0, y: 40, scale: 0.95 },
@@ -8,6 +9,17 @@ const fadeInRules = {
 };
 
 export default function Home() {
+  useEffect(() => {
+    // Handle smooth scrolling for hash links on load or map
+    if (window.location.hash) {
+      const id = window.location.hash.replace('#', '');
+      const element = document.getElementById(id);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  }, []);
+
   return (
     <div className="home-page">
       {/* 2. Hero Section */}
@@ -47,6 +59,46 @@ export default function Home() {
             <FeatureCard icon={<BookOpen />} title="Interactive Learning" desc="Learn sign language through guided lessons and AI feedback." />
             <FeatureCard icon={<Globe />} title="Global Community" desc="Connect with users through rooms, chats, and video interactions." />
             <FeatureCard icon={<Accessibility />} title="Accessibility Tools" desc="Tools specially designed for deaf and mute users." />
+          </div>
+        </div>
+      </section>
+
+      {/* NEW: About SignSetu */}
+      <section id="about" className="about-section section bg-alt">
+        <div className="container">
+          <motion.div style={{ textAlign: 'center', maxWidth: '800px', margin: '0 auto 4rem auto' }} initial="hidden" whileInView="visible" viewport={{ once:true }} variants={fadeInRules}>
+            <h2>About SignSetu</h2>
+            <p style={{ fontSize: '1.2rem', color: 'var(--color-text-muted)', lineHeight: '1.8' }}>
+              SignSetu is an AI-powered platform helping deaf and mute individuals communicate using state-of-the-art sign language detection, 
+              interactive learning modules, and real-time community interaction. Our mission is to break global communication barriers.
+            </p>
+          </motion.div>
+
+          <motion.h3 style={{ textAlign: 'center', marginBottom: '3rem' }} initial="hidden" whileInView="visible" viewport={{ once:true }} variants={fadeInRules}>
+            Developers
+          </motion.h3>
+          
+          <div className="features-grid" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))' }}>
+            <DeveloperCard 
+              name="Alex Developer" 
+              role="AI Developer" 
+              img="https://i.pravatar.cc/150?img=11"
+            />
+            <DeveloperCard 
+              name="Sam Frontend" 
+              role="Frontend Developer" 
+              img="https://i.pravatar.cc/150?img=12"
+            />
+            <DeveloperCard 
+              name="Jordan Backend" 
+              role="Backend Developer" 
+              img="https://i.pravatar.cc/150?img=13"
+            />
+            <DeveloperCard 
+              name="Taylor Design" 
+              role="UI/UX Designer" 
+              img="https://i.pravatar.cc/150?img=14"
+            />
           </div>
         </div>
       </section>
@@ -137,6 +189,22 @@ function CourseCard({ title, level, duration, progress }) {
       </div>
       <div className="progress-bar-container">
         <div className="progress-bar"><div className="progress-fill" style={{width: `${progress}%`}}></div></div>
+      </div>
+    </motion.div>
+  );
+}
+
+function DeveloperCard({ name, role, img }) {
+  return (
+    <motion.div className="glass-card developer-card tilt-card flex-center" style={{ flexDirection: 'column', padding: '2rem 1.5rem', textAlign: 'center' }} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-50px" }} variants={fadeInRules}>
+      <img src={img} alt={name} style={{ width: '100px', height: '100px', borderRadius: '50%', marginBottom: '1rem', border: '3px solid var(--color-primary)', objectFit: 'cover' }} />
+      <h4 style={{ margin: '0 0 0.5rem 0' }}>{name}</h4>
+      <p style={{ margin: '0 0 1.5rem 0', color: 'var(--color-primary)', fontSize: '0.9rem', fontWeight: 600 }}>{role}</p>
+      
+      <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center' }}>
+        <a href="#" className="social-icon-btn glow-effect-hover"><Instagram size={20} /></a>
+        <a href="#" className="social-icon-btn glow-effect-hover"><Github size={20} /></a>
+        <a href="#" className="social-icon-btn glow-effect-hover"><Linkedin size={20} /></a>
       </div>
     </motion.div>
   );

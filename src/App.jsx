@@ -17,6 +17,7 @@ import Settings from './pages/Settings';
 import ThemeCustomization from './pages/ThemeCustomization';
 import Support from './pages/Support';
 import About from './pages/About';
+import ContactUs from './pages/ContactUs';
 
 function App() {
 
@@ -153,6 +154,7 @@ function App() {
           <Route path="/profile" element={<Profile />} />
           <Route path="/settings" element={<Settings />} />
           <Route path="/settings/theme" element={<ThemeCustomization />} />
+          <Route path="/contact" element={<ContactUs />} />
         </Route>
       </Routes>
     </Router>

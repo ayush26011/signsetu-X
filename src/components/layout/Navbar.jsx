@@ -21,6 +21,7 @@ export default function Navbar() {
     { name: 'Live Detection', path: '/detection' },
     { name: 'Learning', path: '/learning' },
     { name: 'Community', path: '/community' },
+    { name: 'About Us', path: '/#about' },
     { name: 'Dashboard', path: '/dashboard' }
   ];
 
@@ -36,12 +37,21 @@ export default function Navbar() {
         <ul className="nav-links desktop-only">
           {navLinks.map((link) => (
             <li key={link.name}>
-              <Link 
-                to={link.path}
-                className={location.pathname === link.path ? 'active' : ''}
-              >
-                {link.name}
-              </Link>
+              {link.path.startsWith('/#') ? (
+                <a 
+                  href={link.path}
+                  className={location.hash === link.path.replace('/', '') ? 'active' : ''}
+                >
+                  {link.name}
+                </a>
+              ) : (
+                <Link 
+                  to={link.path}
+                  className={location.pathname === link.path ? 'active' : ''}
+                >
+                  {link.name}
+                </Link>
+              )}
             </li>
           ))}
         </ul>
@@ -69,12 +79,21 @@ export default function Navbar() {
         <ul className="mobile-nav-links">
           {navLinks.map((link) => (
             <li key={link.name}>
-              <Link 
-                to={link.path}
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                {link.name}
-              </Link>
+              {link.path.startsWith('/#') ? (
+                <a 
+                  href={link.path}
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  {link.name}
+                </a>
+              ) : (
+                <Link 
+                  to={link.path}
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  {link.name}
+                </Link>
+              )}
             </li>
           ))}
           <li><Link to="/login" className="btn btn-secondary w-100 mt-3">Login</Link></li>

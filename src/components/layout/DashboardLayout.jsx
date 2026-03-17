@@ -1,12 +1,14 @@
 import { Outlet, Link, useLocation } from 'react-router-dom';
-import { LayoutDashboard, Camera, BookOpen, Users, User, Settings, Bell, Search, Sparkles, Network } from 'lucide-react';
+import { Home, Phone, LayoutDashboard, Camera, BookOpen, Users, User, Settings, Bell, Search, Sparkles, Network } from 'lucide-react';
 import { AnimatePresence, motion } from 'framer-motion';
 import Chatbot from './Chatbot';
+import Footer from './Footer';
 
 export default function DashboardLayout() {
   const location = useLocation();
   
   const sidebarLinks = [
+    { icon: <Home size={20}/>, label: 'Home', path: '/' },
     { icon: <LayoutDashboard size={20}/>, label: 'Dashboard', path: '/dashboard' },
     { icon: <Camera size={20}/>, label: 'Live Detection', path: '/detection' },
     { icon: <BookOpen size={20}/>, label: 'Learning', path: '/learning' },
@@ -14,6 +16,7 @@ export default function DashboardLayout() {
     { icon: <Network size={20}/>, label: 'Friends', path: '/friends' },
     { icon: <User size={20}/>, label: 'My Profile', path: '/profile' },
     { icon: <Settings size={20}/>, label: 'Settings', path: '/settings' },
+    { icon: <Phone size={20}/>, label: 'Contact Us', path: '/contact' },
   ];
 
   return (
@@ -70,6 +73,7 @@ export default function DashboardLayout() {
               <Outlet />
             </motion.div>
           </AnimatePresence>
+          <Footer />
         </div>
       </div>
       

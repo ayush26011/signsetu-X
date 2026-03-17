@@ -3,6 +3,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import Navbar from './Navbar';
 import Chatbot from './Chatbot';
 import Preloader from './Preloader';
+import Footer from './Footer';
 
 export default function MainLayout() {
   const location = useLocation();
@@ -27,12 +28,7 @@ export default function MainLayout() {
       </main>
       <Chatbot />
       
-      {/* Footer to be replaced fully later */}
-      <footer className="footer minimal-footer">
-        <div className="container">
-          <p>&copy; 2026 SignSetu AI. Breaking Communication Barriers.</p>
-        </div>
-      </footer>
+      <Footer />
     </>
   );
 }

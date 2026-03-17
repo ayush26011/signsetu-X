@@ -2,6 +2,7 @@ import { motion } from 'framer-motion';
 import { Eye, EyeOff, CheckCircle } from 'lucide-react';
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import Footer from '../components/layout/Footer';
 
 export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
@@ -15,8 +16,9 @@ export default function Login() {
   };
 
   return (
-    <div className="auth-page">
-      <div className="auth-bg-shapes">
+    <>
+      <div className="auth-page">
+        <div className="auth-bg-shapes">
         <div className="shape-1"></div>
         <div className="shape-1" style={{ top: 'auto', bottom: '-100px', left: 'auto', right: '-100px', background: 'var(--color-primary)' }}></div>
       </div>
@@ -106,5 +108,7 @@ export default function Login() {
         </div>
       </motion.div>
     </div>
+    <Footer />
+  </>
   );
 }
